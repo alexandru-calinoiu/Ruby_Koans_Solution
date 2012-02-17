@@ -95,8 +95,7 @@ class AboutSymbols < EdgeCase::Koan
   def test_symbols_can_be_dynamically_created
     assert_equal :catsdogs, ("cats" + "dogs").to_sym
   end
-
-  # THINK ABOUT IT:
+                                                              # THINK ABOUT IT:
   #
   # Why is it not a good idea to dynamically create a lot of symbols?
 end
