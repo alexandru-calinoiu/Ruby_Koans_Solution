@@ -31,26 +31,25 @@ require File.expand_path(File.dirname(__FILE__) + '/edgecase')
 
 def score(dice)
   h = {}
+  result = 0
 
   dice.each do |d|
     h[d] ||= 0
     h[d] += 1
+
+    if h[d] == 3
+      result += d == 1 ? 1000 : 100 * d
+      h.delete(d)
+    end
   end
 
-  result = 0
-
-  h.keys.each do |n|
-    if h[n] >= 3
-      result += n == 1 ? 1000 : 100 * n
-      h[n] -= 3
+  h.keys.each do |d|
+    if d == 1
+      result += 100 * h[d]
     end
 
-    if n == 1
-      result += 100 * h[n]
-    end
-
-    if n == 5
-      result += 50 * h[n]
+    if d == 5
+      result += 50 * h[d]
     end
   end
 
