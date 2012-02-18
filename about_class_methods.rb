@@ -161,6 +161,7 @@ class AboutClassMethods < EdgeCase::Koan
   # Are there times you might prefer one over the other?
 
   # I prefer the class << self approach, keeps the class methods naturally grouped and my lazy << self does not have to type self. all the time :)
+  # The only time I would prefer the first method was when I ony have 1 class method
 
   # ------------------------------------------------------------------
 
