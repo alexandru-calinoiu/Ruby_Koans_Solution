@@ -15,10 +15,25 @@ require File.expand_path(File.dirname(__FILE__) + '/edgecase')
 class Proxy
   def initialize(target_object)
     @object = target_object
-    # ADD MORE CODE HERE
+    @messages = {}
   end
 
-  # WRITE CODE HERE
+  def called?(method_name)
+    @messages.has_key?(method_name)
+  end
+
+  def number_of_times_called(method_name)
+    @messages[method_name] ||= 0
+  end
+
+  def messages
+    @messages.keys
+  end
+
+  def method_missing(method_name, *args, &block)
+    @messages[method_name] = @messages[method_name].to_i.next
+    @object.send(method_name, *args, &block)
+  end
 end
 
 # The proxy object should pass the following Koan:
@@ -67,7 +82,7 @@ class AboutProxyObjectProject < EdgeCase::Koan
     tv.power
 
     assert tv.called?(:power)
-    assert ! tv.called?(:channel)
+    assert !tv.called?(:channel)
   end
 
   def test_proxy_counts_method_calls
@@ -130,7 +145,7 @@ class TelevisionTest < EdgeCase::Koan
     tv.power
     tv.power
 
-    assert ! tv.on?
+    assert !tv.on?
   end
 
   def test_edge_case_on_off
@@ -144,7 +159,7 @@ class TelevisionTest < EdgeCase::Koan
 
     tv.power
 
-    assert ! tv.on?
+    assert !tv.on?
   end
 
   def test_can_set_the_channel
